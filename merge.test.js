@@ -1,4 +1,4 @@
-const { merge, mergeSort } = require("./merge")
+const { merge, mergeSort, split } = require("./merge")
 
 describe('merge', function () {
   it('should exist', function () {
@@ -28,6 +28,37 @@ describe('merge', function () {
       [1, 2, 3, 4, 5],
       "merge([3, 4, 5], [1, 2]) should equal [1, 2, 3, 4, 5]"
     )
+  });
+
+  it('should work if one input array is empty', function () {
+    expect(merge([1, 2, 3], [])).toEqual([1, 2, 3]);
+  })
+});
+
+describe('split', function () {
+  it('works for even-lengthed input', function () {
+    const arr = [1, 6, 3, 8, 9, 3];
+    expect(split(arr)).toEqual([[1, 6, 3], [8, 9, 3]]);
+  });
+
+  it('works for odd-lengthed input, extra in first array', function () {
+    const arr = [1, 6, 3, 8, 9, 3, 2];
+    expect(split(arr)).toEqual([[1, 6, 3, 8], [9, 3, 2]]);
+  });
+
+  it('works for array of two', function () {
+    const arr = [1, 6];
+    expect(split(arr)).toEqual([[1], [6]]);
+  });
+
+  it('works for array of one', function () {
+    const arr = [1];
+    expect(split(arr)).toEqual([[1], []]);
+  });
+
+  it('empty array still returns same structure', function () {
+    const arr = [];
+    expect(split(arr)).toEqual([[], []]);
   });
 });
 
